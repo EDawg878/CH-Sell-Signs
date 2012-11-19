@@ -1,0 +1,31 @@
+Copy all files into any location under your LocalPackages directory
+Verified to compile on CH build: #1194-4b4a26d
+
+Commands:
+	/modify <amount/id/price> <value>: modifies the amount, id, or price of the sign aimed at
+	/sell <disable/enable>: turns on and off the functionality of the sell sign aimed at
+	/sell <amount> <id> <price>: creates a sell sign when aiming at a sign
+
+Alternate Way To Create A Sell Sign:
+	Place a sign in the following format:
+			Line1:	[Sell]
+			Line2:	AMOUNT
+			Line3:	ID
+			Line4:	PRICE
+
+Permissions:
+	The default admin permission node is: 'sellsign.admin'
+	The default use permission node is: 'sellsign.use'
+	They can both be set in the configuration
+
+Configuration: (config.ms)
+	prefixenabled: The sign header to be used for enabled signs
+	prefixdisabled: The sign header to be used for disabled signs
+	singularcurrency: The singular form of the economy currency e.g. Dollar
+	pluralcurrency: The singular form of the economy currency eg. Dollars
+	adminpermission: The permission node needed (except for OPs) to create the signs
+	usepermission: The permission node needed to use a sell sign
+
+Usage:
+	When an enabled sell sign is right clicked on, it will notify the user the data name, price, rate and some other useful buyer information
+	To sell items to the sign, you must left click it 
