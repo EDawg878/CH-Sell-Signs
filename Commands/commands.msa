@@ -1,0 +1,54 @@
+*:/modify [$option='usage'] [$value='usage'] = >>>
+	if(!has_permission(@adminpermission) && !pisop()) { _signDie('No permission') }
+	assign(@valid, array('amount', 'id', 'price'))
+	if($option == 'usage' || $value == 'usage' || !array_contains_ic(@valid, $option)) {
+		_signDie('Usage: /modify <amount/id/price> <value>')
+	}
+	if(!_isSellShop(pcursor())) {
+		_signDie('Not a valid signshop')
+	}
+	assign(@location, pcursor())
+	if($option == 'id') {
+		assign(@id, $value)
+		assign(@type, _parseType(@id))
+		assign(@data, _parseData(@id))
+		_signModify('type', @type, @location)
+		_signModify('data', @data, @location)
+	} else {
+		_signModify($option, $value, @location)
+	}
+	assign(@firstletter, to_upper($option[0]))
+	assign(@capitalizedoption, concat(@firstletter, $option[1..]))
+	_signMsg(@capitalizedoption 'set to' $value)
+<<<
+*:/sell [$option1='usage'] [$option2='usage'] [$option3='usage'] = >>>
+	if(!has_permission(@adminpermission) && !pisop()) { _signDie('No permission') }
+	switch($option1) {
+		'disable',
+			if(!_isSellShop(pcursor())) { _signDie('This is not a sign shop') }
+			if(_isSellShopEnabled(pcursor())) {
+				_signSetArray(_signGetArray(pcursor()), pcursor(), 'disable')
+				_signMsg('Sell shop disabled')
+			} else {
+				_signDie('Sell shop is already disabled')
+			},
+		'enable',
+			if(!_isSellShop(pcursor())) { _signDie('This is not a sign shop') }
+			if(_isSellShopDisabled(pcursor())) {
+				_signSetArray(_signGetArray(pcursor()), pcursor(), 'enable')
+				_signMsg('Sell shop enabled')
+			} else {
+				_signDie('Sell shop is already enabled')
+			},
+			if($option1 == 'usage' || $option2 == 'usage' || $option3 == 'usage') {
+				_signDie('Usage: /sell <amount> <id> <price>')
+			}
+			assign(@amount, $option1)
+			assign(@price, $option3)
+			assign(@type, _parseType($option2))
+			assign(@data, _parseData($option2))
+			assign(@id, concat(@type, ':', @data))
+			_signSetText(@amount, @id, @price, pcursor())
+			_signMsg('Sell shop created')
+	}
+<<<

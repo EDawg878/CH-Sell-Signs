@@ -1,0 +1,6 @@
+assign(@prefixenabled, color(1).'[SELL]')
+assign(@prefixdisabled, color(4).'[SELL]')
+assign(@singularcurrency, 'Dollar')
+assign(@pluralcurrency, 'Dollars')
+assign(@adminpermission, 'sellshop.admin')
+assign(@usepermission, 'sellshop.use')
